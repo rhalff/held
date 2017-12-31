@@ -1,0 +1,39 @@
+{
+  "name": "held",
+  "version": "1.0.0",
+  "description": "Detect paths within an object which held external references.",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/ --exec babel-node --presets env",
+    "build": "babel src -d lib",
+    "api": "babel-node examples/test.js",
+    "test": "mocha --compilers js:babel-register",
+    "lint": "eslint examples/ src/ test/",
+    "lint:fix": "yarn run lint --fix"
+  },
+  "keywords": [
+    "memoryleak"
+  ],
+  "author": "Rob Halff <rob.halff@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "weak": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.14.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-class-property": "^1.0.6",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^4.1.0",
+    "nodemon": "^1.14.6"
+  }
+}
