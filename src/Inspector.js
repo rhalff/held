@@ -61,4 +61,12 @@ export default class Inspector {
 
       this._value = null
     }
+
+    static held(object) {
+      const inspector = new Inspector(object)
+
+      inspector.destroy()
+
+      return inspector.leaked()
+    }
 }
