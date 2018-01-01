@@ -1,6 +1,6 @@
 {
   "name": "held",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Detect paths within an object which held external references.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
