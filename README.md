@@ -20,7 +20,7 @@ The devtools memory inspector can be used to see which containers are still hold
 ### Usage:
 
 ```js
-import held from '../src'
+import held from 'held'
 
 let obj = {
   a: 1
