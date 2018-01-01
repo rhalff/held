@@ -1,13 +1,10 @@
 {
   "name": "held",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Detect paths within an object which held external references.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
-  "author": {
-    "name": "Rob Halff",
-    "email": "rob.halff@gmail.com"
-  },
+  "author": "Rob Halff <rob.halff@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/rhalff/held.git"
@@ -35,7 +32,6 @@
     "browser",
     "node"
   ],
-  "author": "Rob Halff <rob.halff@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "fragile": "^1.2.0"
