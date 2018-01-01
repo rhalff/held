@@ -1,99 +1,100 @@
-import assert from 'assert'
+import test from 'tape'
 
 import {
   createDetectors,
   createRefMapper,
   deRef,
   fnMap,
-  nullify,
-  LeakDetector
-} from '../src/index.js'
+  nullify
+} from '../src/util'
 
-describe('held', () => {
-  it('createRefMapper', () => {
-    const a = {a: {b: {}}}
+test('createRefMapper', (t) => {
+  const a = {a: {b: {}}}
 
-    const refMap = new Map()
-    const refMapper = createRefMapper(refMap)
+  const refMap = new Map()
+  const refMapper = createRefMapper(refMap)
 
-    assert(refMapper.name, 'createRefMapper')
+  t.true(refMapper(['a'], a))
+  t.deepEqual(refMap.get(a), [['a']])
 
-    assert(refMapper(['a'], a), true)
-    assert.deepEqual(refMap.get(a), [['a']])
+  t.equal(refMapper(['a', 'b'], a), false)
+  t.deepEqual(refMap.get(a), [['a', 'b'], ['a']])
+  t.end()
+})
 
-    assert.equal(refMapper(['a', 'b'], a), false)
-    assert.deepEqual(refMap.get(a), [['a'], ['a', 'b']])
-  })
-  it('deRef', () => {
-    const obj = {
-      a: {
-        b: {
-          c: 1
-        }
+test('deRef', (t) => {
+  const obj = {
+    a: {
+      b: {
+        c: 1
       }
     }
+  }
 
-    const refMap = new Map()
-    refMap.set(obj.a.b, [['a', 'b']])
+  const refMap = new Map()
+  refMap.set(obj.a.b, [['a', 'b']])
 
-    deRef(obj, refMap)
+  deRef(obj, refMap)
 
-    assert.deepEqual(obj, {a: {b: null}})
-    assert.equal(refMap.size, 0)
+  t.deepEqual(obj, {a: {b: null}})
+  t.equal(refMap.size, 0)
 
-    refMap.set(obj.a, [['a']])
+  refMap.set(obj.a, [['a']])
 
-    deRef(obj, refMap)
+  deRef(obj, refMap)
 
-    assert.equal(refMap.size, 0)
+  t.equal(refMap.size, 0)
 
-    assert.deepEqual(obj, {a: null})
-  })
-  it('fnMap', () => {
-    const obj = {
-      a: {
-        b: {
-          c: 1
-        }
+  t.deepEqual(obj, {a: null})
+  t.end()
+})
+
+test('fnMap', (t) => {
+  const obj = {
+    a: {
+      b: {
+        c: 1
       }
     }
+  }
 
-    const collect = []
+  const collect = []
 
-    fnMap(obj, (value, path) => {
-      collect.push([value, path])
-    })
-
-    assert.ok(collect, [
-      [obj.a, ['a']],
-      [obj.a.b, ['a', 'b']]
-    ])
+  fnMap(obj, (value, path) => {
+    collect.push([value, path])
   })
-  describe('nullify', () => {
-    const obj = {
-      a: {
-        b: {
-          c: {}
-        }
+
+  t.ok(collect, [
+    [obj.a, ['a']],
+    [obj.a.b, ['a', 'b']]
+  ])
+  t.end()
+})
+
+test('nullify', (t) => {
+  const obj = {
+    a: {
+      b: {
+        c: {}
       }
     }
+  }
 
-    nullify(obj, ['a', 'b', 'c'])
-    assert.deepEqual(obj, {a: {b: {c: null}}})
+  nullify(obj, ['a', 'b', 'c'])
+  t.deepEqual(obj, {a: {b: {c: null}}})
 
-    nullify(obj, ['a', 'b'])
-    assert.deepEqual(obj, {a: {b: null}})
+  nullify(obj, ['a', 'b'])
+  t.deepEqual(obj, {a: {b: null}})
 
-    nullify(obj, ['a'])
-    assert.deepEqual(obj, {a: null})
+  nullify(obj, ['a'])
+  t.deepEqual(obj, {a: null})
 
-    nullify(obj, ['a', 'b', 'c'])
-    assert.deepEqual(obj, {a: null})
-  })
-  it('LeakDetector', () => {
-    assert.ok(LeakDetector)
-  })
-  it('createDetectors', () => {
-    assert.ok(createDetectors)
-  })
+  nullify(obj, ['a', 'b', 'c'])
+  t.deepEqual(obj, {a: null})
+  t.end()
+})
+
+test('createDetectors', (t) => {
+  t.ok(createDetectors)
+  t.end()
 })

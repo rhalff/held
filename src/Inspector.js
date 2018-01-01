@@ -9,9 +9,11 @@ function inspect (value, refMap) {
  * ```
  *   let value = { ... }
  *
- *   const inspector = new Inspector(value);
+ *   const inspector = new Inspector(value)
  *
  *   value = null
+ *
+ *   console.log(inspector.destroy())
  * ```
  *
  * If you want to check for cross references among several objects pass in an object like so:
@@ -21,7 +23,13 @@ function inspect (value, refMap) {
  *     obj2,
  *     obj3.
  *     ...etc.
- *  });
+ *  })
+ *
+ *  obj1 = null
+ *  obj2 = null
+ *  obj3 = null
+ *
+ *  console.log(inspector.destroy())
  * ```
  *
  * Note: If you use destroy() each and every object reference within will be nullified.
@@ -31,7 +39,7 @@ export default class Inspector {
     _detectors;
 
     constructor (value) {
-      this._value = value;
+      this._value = value
       inspect(this._value, this._refMap)
       this._detectors = createDetectors(this._refMap)
     }
@@ -60,13 +68,13 @@ export default class Inspector {
       deRef(this._value, this._refMap)
 
       this._value = null
+
+      return this.leaked()
     }
 
-    static held(object) {
+    static held (object) {
       const inspector = new Inspector(object)
 
-      inspector.destroy()
-
-      return inspector.leaked()
+      return inspector
     }
 }

@@ -1,4 +1,4 @@
-import LeakDetector from './LeakDetector'
+import fragile from 'fragile'
 
 /**
  * Receives a reference map and returns a list of leak detectors
@@ -17,11 +17,11 @@ export default function createDetectors (refMap) {
   const detectors = []
 
   for (let [value, paths] of refMap) {
-    const detector = new LeakDetector(value)
-
-    detector.type = value.toString ? value.toString() : typeof value
-    detector.paths = paths
-    detectors.push(detector)
+    detectors.push({
+      type: value.toString ? value.toString() : typeof value,
+      paths,
+      isLeaking: fragile(value)
+    })
   }
 
   return detectors

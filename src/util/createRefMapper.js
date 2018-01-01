@@ -13,7 +13,7 @@
 export default function createRefMapper (refMap) {
   function refMapper (path, value) {
     if (refMap.has(value)) {
-      refMap.set(value, refMap.get(value).concat([path]))
+      refMap.set(value, [path].concat(refMap.get(value)))
       return false
     }
 

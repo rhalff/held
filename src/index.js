@@ -1,1 +1,3 @@
-export * from './util'
+import Inspector from './Inspector'
+
+export default Inspector.held

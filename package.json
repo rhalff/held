@@ -7,8 +7,10 @@
   "scripts": {
     "start": "nodemon src/ --exec babel-node --presets env",
     "build": "babel src -d lib",
-    "api": "babel-node examples/test.js",
-    "test": "mocha --compilers js:babel-register",
+    "node": "babel-node --allow-natives-syntax --expose-gc",
+    "example:held": "yarn node examples/held.js",
+    "example:inspector": "yarn node examples/inspector.js",
+    "test": "yarn node test/index.js",
     "lint": "eslint examples/ src/ test/",
     "lint:fix": "yarn run lint --fix"
   },
@@ -18,7 +20,7 @@
   "author": "Rob Halff <rob.halff@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "weak": "^1.0.1"
+    "fragile": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -34,7 +36,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^4.1.0",
-    "nodemon": "^1.14.6"
+    "nodemon": "^1.14.6",
+    "tape": "^4.8.0"
   }
 }
