@@ -4,6 +4,17 @@
   "description": "Detect paths within an object which held external references.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
+  "author": {
+    "name": "Rob Halff",
+    "email": "rob.halff@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rhalff/held.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhalff/held/issues"
+  },
   "scripts": {
     "start": "nodemon src/ --exec babel-node --presets env",
     "build": "babel src -d lib",
@@ -15,7 +26,14 @@
     "lint:fix": "yarn run lint --fix"
   },
   "keywords": [
-    "memoryleak"
+    "memoryleak",
+    "weak",
+    "gc",
+    "v8",
+    "memory",
+    "leak",
+    "browser",
+    "node"
   ],
   "author": "Rob Halff <rob.halff@gmail.com>",
   "license": "MIT",
